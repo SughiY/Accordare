@@ -1,4 +1,13 @@
 [package]
 name = "accordare"
 version = "0.1.0"
-authors = ["SughiY <cedricku@icloud.com>"]
+authors = ["SughiY <shiyi.gu@protonmail.com>"]
+[dependencies]
+iron = "*"
+time = "*"
+rustc-serialize = "*"
+router = "*"
+log = "*"
+env_logger = "*"
+regex = "*"
+ws = "*"

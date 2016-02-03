@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script type='text/javascript' src='./bower_components/eventEmitter/EventEmitter.min.js'></script>
+    <script type='text/javascript' src='./ws_event.js'></script>
+    <script type='text/javascript' src='./accordare.js'></script>
+    <script>
+        function f(){
+		var socket = WSEvent.connect('ws:127.0.0.1:3012')
+			var sender = document.getElementById('message_box')
+			sender.onchange = function(target){
+				var text = target.target.value
+					socket.send(text)				 
+			}
+		socket.addListener('foo', function(data){
+			console.log(data)
+		})
+	}
+    </script>
+    <meta charset="utf-8">
+    <title>Ma Page Web</title>
+  </head>
+  <body onload = "f();">
+	  <h1>Bienvenue sur ma page !</h1>
+	  <p>Voici un paragraphe.</p>
+	  <a id="github_line" href="http://www.github.com">github.com</a>
+	  <div id='data'>
+		  <input type='text' id='message_box' placeholder='send message'>
+		  <button id='sender'>Send Message</button>
+	  </div>
+  </body>
+</html>
+
+
+
