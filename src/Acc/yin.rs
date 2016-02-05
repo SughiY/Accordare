@@ -1,7 +1,7 @@
 extern crate libc;
 
 use libc::{int16_t, c_float, size_t, c_int};
-use Acc::audioData::audio;
+use Acc::audioData::sample;
 use std::ptr;
 
 #[repr(C)]
@@ -18,9 +18,12 @@ extern{
 
 pub fn testWithFile(){
     unsafe {
-        let mut mut_audio = audio;
+        let mut mut_audio = &mut sample()[1000 .. 2500];
         let result = Yin_estimate_pitch(mut_audio.as_mut_ptr());
         println!("Pitch is found to be {} with buffer length {} and probablity {} \n", result.pitch as f32, result.buffer_length as i32, result.probability as f32);
     }
 }
 
+//pub fn estimate_pitch(buffer:) -> yin_result_t{
+//    let mut mut_buffer = buffer; 
+//}
