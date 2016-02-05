@@ -1,39 +1,40 @@
-window.AudioContext = window.AudioContext || window.webkitAudioContext;
 
-var audioContext = null;
+var socket = null
 
 function error() {
 	    alert('Stream generation failed.');
 }
 
 function intercationWithServer(){
-	var socket = WSEvent.connect('ws:127.0.0.1:3012') 
-		var sender = document.getElementById('message_box') 
+        socket = WSEvent.connect('ws://127.0.0.1:3012') 
+	var sender = document.getElementById('message_box') 
 		sender.onchange = function(target){ 
 			var text = target.target.value 
-				socket.send(text)                                 
-		} 
+			socket.send(text)                                 
+	} 
 	socket.addListener('foo', function(data){ 
 		console.log(data) 
 	})
 }
 
+function gotStream(stream){
+	var mediaRecorder = new MediaStreamRecorder(stream)
+	mediaRecorder.mimeType = 'audio/ogg'
+	mediaRecorder.audioChannels = 1
+	mediaRecorder.ondataavailable = function (blob) {
+		socket.send(blob)
+	}
+	mediaRecorder.start(3000)
+}
+
 window.onload = function() {
-	audioContext = new AudioContext()
 
 	navigator.getUserMedia = 
 		navigator.getUserMedia ||
 		navigator.webkitGetUserMedia ||
 		navigator.mozGetUserMedia
 
-		navigator.getUserMedia({"audio":true}, function(stream) {
-		  var microphone = audioContext.createMediaStreamSource(stream)
-		  microphone.connect(audioContext.destination)
-	}, error)
+	navigator.getUserMedia({"audio":true}, gotStream, error)
 
 	intercationWithServer()
 }
-
-
-
-
