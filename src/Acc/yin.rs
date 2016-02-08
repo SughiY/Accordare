@@ -13,17 +13,19 @@ pub struct yin_result_t{
 
 #[link(name = "Yin")]
 extern{
-    fn Yin_estimate_pitch(yin: *mut int16_t) -> yin_result_t;
+    fn Yin_estimate_pitch(yin: *mut int16_t, buffer_length: int16_t) -> yin_result_t;
 }
 
 pub fn testWithFile(){
-    unsafe {
         let mut mut_audio = &mut sample_from_file(FILENAME)[1000 .. 2500];
-        let result = Yin_estimate_pitch(mut_audio.as_mut_ptr());
+        let result = unsafe{ Yin_estimate_pitch(mut_audio.as_mut_ptr(), 1500 as int16_t) };
         println!("Pitch is found to be {} with buffer length {} and probablity {} \n", result.pitch as f32, result.buffer_length as i32, result.probability as f32);
-    }
 }
 
-//pub fn estimate_pitch(buffer: &mut [u8]) -> yin_result_t{
-//
-//}
+pub fn estimate_pitch(buffer: Vec<u8>) -> yin_result_t{
+    let mut mut_audio = &mut sample_from_buf(buffer)[1000 .. 2100];
+    println!("got sample from buffer!");
+    let result = unsafe {Yin_estimate_pitch(mut_audio.as_mut_ptr(), 1100 as int16_t)};
+    println!("Pitch is found to be {} with buffer length {} and probablity {} \n", result.pitch as f32, result.buffer_length as i32, result.probability as f32);
+    result
+}

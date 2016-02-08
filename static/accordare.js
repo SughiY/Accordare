@@ -18,9 +18,9 @@ function intercationWithServer(){
 }
 
 function gotStream(stream){
-	var mediaRecorder = new MediaStreamRecorder(stream)
-	mediaRecorder.mimeType = 'audio/ogg'
-	mediaRecorder.audioChannels = 1
+	var mediaRecorder = new StereoAudioRecorder(stream)
+	mediaRecorder.mimeType = 'audio/wav'
+	mediaRecorder.audioChannels = 2
 	mediaRecorder.ondataavailable = function (blob) {
 		socket.send(blob)
 	}

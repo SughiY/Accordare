@@ -22,7 +22,6 @@ fn main () {
     // Setup logging
     env_logger::init().unwrap();
     // Listen on an address and call the closure for each connection
-    Acc::testWithFile();
     if let Err(error) = listen("127.0.0.1:3012", |out| {
         // The handler needs to take ownership of out, so we use move
         move |msg:Message| {
@@ -33,7 +32,7 @@ fn main () {
             // Use the out channel to send messages back
             let text = msg.clone();
             let data = msg.into_data();
-            println!("data:{:?}", data);
+            Acc::estimate_pitch(data);
             out.send(text)
         }
     }) {

@@ -218,18 +218,16 @@ float Yin_getProbability(Yin *yin){
 	return yin->probability;
 }
 
-Yin_result_t Yin_estimate_pitch(int16_t* buffer){
+Yin_result_t Yin_estimate_pitch(int16_t* buffer, int16_t buffer_length){
 	Yin yin;
 	Yin_result_t result;
-        int buffer_length = 100;
 	float pitch;
 
-	while (pitch < 10) {
+	{
 		Yin_init(&yin, buffer_length, 0.05);
 		pitch = Yin_getPitch(&yin, buffer);
-		buffer_length++;
 	}
-	result.pitch = pitch;
+	result.pitch = pitch * 2;
 	result.buffer_length = buffer_length;
 	result.probability = Yin_getProbability(&yin);
 	return result;

@@ -55,5 +55,5 @@ float Yin_getProbability(Yin *yin);
 /**
  *
  */
-Yin_result_t Yin_estimate_pitch(int16_t* buffer);
+Yin_result_t Yin_estimate_pitch(int16_t* buffer, int16_t buffer_length);
 #endif
