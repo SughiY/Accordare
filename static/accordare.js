@@ -24,7 +24,7 @@ function gotStream(stream){
 	mediaRecorder.ondataavailable = function (blob) {
 		socket.send(blob)
 	}
-	mediaRecorder.start(3000)
+	mediaRecorder.start(300)
 }
 
 window.onload = function() {
