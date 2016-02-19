@@ -14,7 +14,7 @@ mod Acc;
 #[derive(RustcDecodable, RustcEncodable)]
 struct EventObject{
     event:String,
-    content:String
+    content:f32
 }
 
 fn main () {
@@ -25,15 +25,17 @@ fn main () {
     if let Err(error) = listen("127.0.0.1:3012", |out| {
         // The handler needs to take ownership of out, so we use move
         move |msg:Message| {
-// Handle messages received on this connection
-// let text = msg.clone().into_text().unwrap();
-// let json_object = json::decode(&text).unwrap();
-// println!("Server got message '{}'. ", json_object);
-            // Use the out channel to send messages back
-            let text = msg.clone();
-            let data = msg.into_data();
-            Acc::estimate_pitch(data);
-            out.send(text)
+            let result = Acc::estimate_pitch(msg.into_data());
+            let object = EventObject{
+                event: "pitch".to_string(),
+                content: result.get_pitch()
+            };
+
+            if let Ok(json_file) = json::encode(&object) {
+                out.send(json_file)   
+            } else {
+                Ok(())
+            }
         }
     }) {
         // Inform the user of failure

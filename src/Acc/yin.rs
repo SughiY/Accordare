@@ -11,6 +11,10 @@ pub struct yin_result_t{
     probability:c_float
 }
 
+impl yin_result_t {
+    pub fn get_pitch(&self) -> f32 { self.pitch as f32 }
+}
+
 #[link(name = "Yin")]
 extern{
     fn Yin_estimate_pitch(yin: *mut int16_t, buffer_length: int16_t) -> yin_result_t;
@@ -23,9 +27,9 @@ pub fn testWithFile(){
 }
 
 pub fn estimate_pitch(buffer: Vec<u8>) -> yin_result_t{
-    let mut mut_audio = &mut sample_from_buf(buffer)[1000 .. 2100];
+    let mut_audio = &mut sample_from_buf(buffer)[..];
     println!("got sample from buffer!");
     let result = unsafe {Yin_estimate_pitch(mut_audio.as_mut_ptr(), 1100 as int16_t)};
-    println!("Pitch is found to be {} with buffer length {} and probablity {} \n", result.pitch as f32, result.buffer_length as i32, result.probability as f32);
+    if result.pitch as f32 > -2 as f32  { println!("Pitch is found to be {} with buffer length {} and probablity {} \n", result.pitch as f32, result.buffer_length as i32, result.probability as f32); }
     result
 }
