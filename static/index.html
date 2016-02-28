@@ -3,22 +3,35 @@
   <head>
   <link href='http://fonts.googleapis.com/css?family=Alike' rel='stylesheet' type='text/css'>
   <link rel="stylesheet" type="text/css" href="./style.css" />
+  <link rel="stylesheet" type="text/css" href="./bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="./freelancer.css" />
     <script type='text/javascript' src='./bower_components/eventEmitter/EventEmitter.min.js'></script>
     <script src='./Snap.svg-0.4.1/dist/snap.svg-min.js'></script>
     <script type='text/javascript' src='./ws_event.js'></script>
     <script type='text/javascript' src='./accordare.js'></script>
     <script type='text/javascript' src='./MediaStreamRecorder.min.js'></script>
+    <script type='text/javascript' src='./bower_components/snabbt.js/snabbt.min.js'></script>
     <meta charset="utf-8">
     <title>Ma Page Web</title>
   </head>
-  <body>
-	  <button id="OnOff" class="location">use live input</button>
-
-	  <div id="detector" class="vague location">
-		  <div class="pitch"><span id="pitch">--</span>Hz</div>
-		  <div class="note"><span id="note">--</span></div>   
-		  <canvas id="output" width=300 height=42></canvas>
-		  <div id="detune"><span id="detune_amt">--</span><span id="flat">cents &#9837;</span><span id="sharp">cents &#9839;</span></div>
+  <body id="page-top" class="main-content">
+	  <header>
+	  <div class="container">
+		  <div>
+			  <button id="OnOff" class="intro-text center-block btn btn-primary">use live input</button>
+		  </div>
+	  </div>
+	  </header>
+	  <div class="icon">
+		  <img src="./Guichi.png" alt="Guichi" style="width:82px;height:132;">
+	  </div>
+	  <div class="main-content">	
+		  <div id="detector" class="vague center-block">
+			  <div class="pitch"><span id="pitch">--</span>Hz</div>
+			  <div class="note"><span id="note">--</span></div>   
+			  <canvas id="output" width=300 height=42></canvas>
+			  <div id="detune"><span id="detune_amt">--</span><span id="flat">cents &#9837;</span><span id="sharp">cents &#9839;</span></div>
+		  </div>
 	  </div>
   </body>
 </html>

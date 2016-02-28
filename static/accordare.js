@@ -30,13 +30,13 @@ function centsOffFromPitch( frequency, note ){
 function updatePitch(ac) {
 
  	if (ac == -2) {
- 		detectorElem.className = "vague location"
+ 		detectorElem.className = "vague center-block"
 	 	pitchElem.innerText = "--"
 		noteElem.innerText = "-"
 		detuneElem.className = ""
 		detuneAmount.innerText = "--"
  	} else {
-	 	detectorElem.className = "confident location"
+	 	detectorElem.className = "confident center-block"
 	 	pitch = ac
 	 	pitchElem.innerHTML = Math.round( pitch ) 
 	 	var note =  noteFromPitch( pitch )
@@ -71,9 +71,6 @@ function intercationWithServer(){
 		updatePitch(data)
 	})
 }
-
-
-
 
 function gotStream(stream){
 
@@ -115,11 +112,28 @@ function toggleLiveInput(){
 		navigator.getUserMedia({"audio":true}, gotStream, error)
 		hasOpenedTrack = true
 		buttonElem.innerHTML = "close audio track"
+		buttonElem.className = "intro-text center-block btn btn-primary"
+		snabbt(buttonElem, 'attention', {
+			  rotation: [0, 0, Math.PI/2],
+			    springConstant: 1.9,
+			      springDeceleration: 0.9,
+		});
+
 	} else {
 
 		hasOpenedTrack = false
 		stopTracks()
 		buttonElem.innerHTML = "user live input"
+		buttonElem.className = "intro-text center-block btn btn-primary"
+	 	pitchElem.innerHTML = "--"
+		noteElem.innerHTML = "--"
+		detuneElem.className = ""
+		detuneAmount.innerHTML = "--"
+		snabbt(buttonElem, 'attention', {
+			rotation: [0, 0, Math.PI/2],
+			springConstant: 1.9,
+			springDeceleration: 0.9,
+		});
 
 	}
 }
