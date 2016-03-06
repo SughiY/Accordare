@@ -22,6 +22,7 @@ fn main () {
     // Setup logging
     env_logger::init().unwrap();
     // Listen on an address and call the closure for each connection
+    println!("Use browser(FireFox) supporting 'webrtc' to open the index file in path './static/index.html'");
     if let Err(error) = listen("127.0.0.1:3012", |out| {
         // The handler needs to take ownership of out, so we use move
         move |msg:Message| {
