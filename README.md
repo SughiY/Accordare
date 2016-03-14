@@ -33,4 +33,8 @@ For later object, [Hound](https://github.com/ruud-v-a/hound) ,A wav encoding and
 ###3. Architecture
 Architecture is separate by two parts : Server side (Iron) + Client side(Firefox).
 
-All the logic can be implemented by rust, but Rust provides a Foreign Function Interface (FFI) to C libraries. So it is also possible to utilise C lib directly on the server side.
+All the logic can be implemented by rust, but Rust provides a Foreign Function Interface (FFI) to C libraries. So it is also possible to utilise C lib directly on the server side. 
+
+Client side uses webrtc to record audio into .wav format and then sends to server by websocket.
+
+Server side decode .wav file to obtain wave information which will be treated by Yin - alogrithm to get pitch and other infos, etc.
